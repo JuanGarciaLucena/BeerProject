@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject
+package com.emebesoft.beerProject
 
 import org.junit.Test
 

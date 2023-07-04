@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject.ui.theme
+package com.emebesoft.beerProject.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

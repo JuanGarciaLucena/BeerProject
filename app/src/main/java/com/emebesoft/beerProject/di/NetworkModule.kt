@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject.di
+package com.emebesoft.beerProject.di
 
 import com.emebesoft.baseProject.BuildConfig
 import dagger.Module

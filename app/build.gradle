@@ -26,15 +26,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //Todo: Change base url
-            buildConfigField "String", "BASE_URL", "\"https://google.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.punkapi.com/v2\""
         }
 
         debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            //Todo: Change base url
-            buildConfigField "String", "BASE_URL", "\"https://google.com/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.punkapi.com/v2\""
         }
     }
     compileOptions {

@@ -1,4 +1,4 @@
-package com.emebesoft.baseProject
+package com.emebesoft.beerProject
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
