@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface BeerRetrofitApi {
 
-    @GET("/beers")
+    @GET("beers?page=1&per_page=10")
     suspend fun fetchBeers() : List<BeerModel>
 }

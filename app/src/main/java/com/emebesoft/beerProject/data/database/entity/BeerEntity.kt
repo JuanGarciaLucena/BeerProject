@@ -13,13 +13,13 @@ data class BeerEntity(
     val description: String,
     val imageUrl: String,
     val abv: Double,
-    val ibu: Int,
-    val targetFg: Int,
-    val targetOg: Int,
-    val ebc: Int,
-    val srm: Int,
+    val ibu: Double,
+    val targetFg: Double,
+    val targetOg: Double,
+    val ebc: Double,
+    val srm: Double,
     val ph: Double,
-    val attenuationLevel: Int,
+    val attenuationLevel: Double,
     val volume: VolumeEntity,
     val boilVolume: BoilVolumeEntity,
     val method: MethodEntity,
@@ -30,24 +30,24 @@ data class BeerEntity(
 )
 
 data class VolumeEntity (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
 data class BoilVolumeEntity (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
 data class MethodEntity (
     val mashTemp: List<MashTempEntity>,
     val fermentation: FermentationEntity,
-    val twist: String
+    val twist: String?
 )
 
 data class MashTempEntity (
     val temp: TempEntity,
-    val duration: Int
+    val duration: Int?
 )
 
 data class FermentationEntity (
@@ -55,7 +55,7 @@ data class FermentationEntity (
 )
 
 data class TempEntity (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
@@ -66,7 +66,7 @@ data class IngredientsEntity (
 )
 
 data class AmountEntity (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 

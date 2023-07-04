@@ -1,5 +1,6 @@
 package com.emebesoft.beerProject.data.model
 
+import com.emebesoft.beerProject.domain.model.Beer
 import com.google.gson.annotations.SerializedName
 
 data class BeerModel(
@@ -10,13 +11,13 @@ data class BeerModel(
     @SerializedName("description") val description: String,
     @SerializedName("image_url") val imageUrl: String,
     @SerializedName("abv") val abv: Double,
-    @SerializedName("ibu") val ibu: Int,
-    @SerializedName("target_fg") val targetFg: Int,
-    @SerializedName("target_og") val targetOg: Int,
-    @SerializedName("ebc") val ebc: Int,
-    @SerializedName("srm") val srm: Int,
+    @SerializedName("ibu") val ibu: Double,
+    @SerializedName("target_fg") val targetFg: Double,
+    @SerializedName("target_og") val targetOg: Double,
+    @SerializedName("ebc") val ebc: Double,
+    @SerializedName("srm") val srm: Double,
     @SerializedName("ph") val ph: Double,
-    @SerializedName("attenuation_level") val attenuationLevel: Int,
+    @SerializedName("attenuation_level") val attenuationLevel: Double,
     @SerializedName("volume") val volume: Volume,
     @SerializedName("boil_volume") val boilVolume: BoilVolume,
     @SerializedName("method") val method: Method,
@@ -28,13 +29,13 @@ data class BeerModel(
 
 data class Volume (
 
-    @SerializedName("value") val value : Int,
+    @SerializedName("value") val value : Double,
     @SerializedName("unit") val unit : String
 )
 
 data class BoilVolume (
 
-    @SerializedName("value") val value : Int,
+    @SerializedName("value") val value : Double,
     @SerializedName("unit") val unit : String
 )
 
@@ -42,13 +43,13 @@ data class Method (
 
     @SerializedName("mash_temp") val mashTemp : List<MashTemp>,
     @SerializedName("fermentation") val fermentation : Fermentation,
-    @SerializedName("twist") val twist : String
+    @SerializedName("twist") val twist : String?
 )
 
 data class MashTemp (
 
     @SerializedName("temp") val temp : Temp,
-    @SerializedName("duration") val duration : Int
+    @SerializedName("duration") val duration : Int?
 )
 
 data class Fermentation (
@@ -58,7 +59,7 @@ data class Fermentation (
 
 data class Temp (
 
-    @SerializedName("value") val value : Int,
+    @SerializedName("value") val value : Double,
     @SerializedName("unit") val unit : String
 )
 
@@ -71,7 +72,7 @@ data class Ingredients (
 
 data class Amount (
 
-    @SerializedName("value") val value : Int,
+    @SerializedName("value") val value : Double,
     @SerializedName("unit") val unit : String
 )
 
@@ -88,3 +89,105 @@ data class Hops (
     @SerializedName("add") val add : String,
     @SerializedName("attribute") val attribute : String
 )
+
+
+
+//Model object to Domain object
+fun BeerModel.toDomain(): Beer {
+    return Beer(
+        id = id,
+        name = name,
+        tagline = tagline,
+        firstBrewed = firstBrewed,
+        description = description,
+        imageUrl = imageUrl,
+        abv = abv,
+        ibu = ibu,
+        targetFg = targetFg,
+        targetOg = targetOg,
+        ebc = ebc,
+        srm = srm,
+        ph = ph,
+        attenuationLevel = attenuationLevel,
+        volume = volume.toDomain(),
+        boilVolume = boilVolume.toDomain(),
+        method = method.toDomain(),
+        ingredients = ingredients.toDomain(),
+        foodPairing = foodPairing,
+        brewersTips = brewersTips,
+        contributedBy = contributedBy
+    )
+}
+
+fun Volume.toDomain(): com.emebesoft.beerProject.domain.model.Volume {
+    return com.emebesoft.beerProject.domain.model.Volume(
+        value = value,
+        unit = unit
+    )
+}
+
+fun BoilVolume.toDomain(): com.emebesoft.beerProject.domain.model.BoilVolume {
+    return com.emebesoft.beerProject.domain.model.BoilVolume(
+        value = value,
+        unit = unit
+    )
+}
+
+fun Method.toDomain(): com.emebesoft.beerProject.domain.model.Method {
+    return com.emebesoft.beerProject.domain.model.Method(
+        mashTemp = mashTemp.map { it.toDomain() },
+        fermentation = fermentation.toDomain(),
+        twist = twist ?: ""
+    )
+}
+
+fun MashTemp.toDomain(): com.emebesoft.beerProject.domain.model.MashTemp {
+    return com.emebesoft.beerProject.domain.model.MashTemp(
+        temp = temp.toDomain(),
+        duration = duration ?: 0
+    )
+}
+
+fun Fermentation.toDomain(): com.emebesoft.beerProject.domain.model.Fermentation {
+    return com.emebesoft.beerProject.domain.model.Fermentation(
+        temp = temp.toDomain()
+    )
+}
+
+fun Temp.toDomain(): com.emebesoft.beerProject.domain.model.Temp {
+    return com.emebesoft.beerProject.domain.model.Temp(
+        value = value,
+        unit = unit
+    )
+}
+
+fun Ingredients.toDomain(): com.emebesoft.beerProject.domain.model.Ingredients {
+    return com.emebesoft.beerProject.domain.model.Ingredients(
+        malt = malt.map { it.toDomain() },
+        hops = hops.map { it.toDomain() },
+        yeast = yeast
+    )
+}
+
+fun Malt.toDomain(): com.emebesoft.beerProject.domain.model.Malt {
+    return com.emebesoft.beerProject.domain.model.Malt(
+        name = name,
+        amount = amount.toDomain()
+    )
+}
+
+fun Hops.toDomain(): com.emebesoft.beerProject.domain.model.Hops {
+    return com.emebesoft.beerProject.domain.model.Hops(
+        name = name,
+        amount = amount.toDomain(),
+        add = add,
+        attribute = attribute
+    )
+}
+
+fun Amount.toDomain(): com.emebesoft.beerProject.domain.model.Amount {
+    return com.emebesoft.beerProject.domain.model.Amount(
+        value = value,
+        unit = unit
+    )
+}

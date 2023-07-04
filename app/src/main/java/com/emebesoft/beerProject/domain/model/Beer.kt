@@ -20,13 +20,13 @@ data class Beer(
     val description: String,
     val imageUrl: String,
     val abv: Double,
-    val ibu: Int,
-    val targetFg: Int,
-    val targetOg: Int,
-    val ebc: Int,
-    val srm: Int,
+    val ibu: Double,
+    val targetFg: Double,
+    val targetOg: Double,
+    val ebc: Double,
+    val srm: Double,
     val ph: Double,
-    val attenuationLevel: Int,
+    val attenuationLevel: Double,
     val volume: Volume,
     val boilVolume: BoilVolume,
     val method: Method,
@@ -37,24 +37,24 @@ data class Beer(
 )
 
 data class Volume (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
 data class BoilVolume (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
 data class Method (
     val mashTemp: List<MashTemp>,
     val fermentation: Fermentation,
-    val twist: String
+    val twist: String?
 )
 
 data class MashTemp (
     val temp: Temp,
-    val duration: Int
+    val duration: Int?
 )
 
 data class Fermentation (
@@ -62,7 +62,7 @@ data class Fermentation (
 )
 
 data class Temp (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
@@ -73,7 +73,7 @@ data class Ingredients (
 )
 
 data class Amount (
-    val value: Int,
+    val value: Double,
     val unit: String
 )
 
@@ -134,14 +134,14 @@ fun MethodEntity.toDomain(): Method {
     return Method(
         mashTemp = mashTemp.map { it.toDomain() },
         fermentation = fermentation.toDomain(),
-        twist = twist
+        twist = twist ?: ""
     )
 }
 
 fun MashTempEntity.toDomain(): MashTemp {
     return MashTemp(
         temp = temp.toDomain(),
-        duration = duration
+        duration = duration ?: 0
     )
 }
 
@@ -188,3 +188,4 @@ fun AmountEntity.toDomain(): Amount {
         unit = unit
     )
 }
+
