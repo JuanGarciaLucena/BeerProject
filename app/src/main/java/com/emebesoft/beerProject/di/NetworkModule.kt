@@ -1,6 +1,7 @@
 package com.emebesoft.beerProject.di
 
 import com.emebesoft.baseProject.BuildConfig
+import com.emebesoft.beerProject.data.network.BeerRetrofitApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,5 +21,11 @@ class NetworkModule {
             .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun providesBeerApiClient(retrofit: Retrofit) : BeerRetrofitApi{
+        return retrofit.create(BeerRetrofitApi::class.java)
     }
 }
