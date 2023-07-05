@@ -30,9 +30,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -141,8 +143,11 @@ class BeerListScreen(private val navController: NavController) {
         }
     }
 
+    @OptIn(ExperimentalComposeUiApi::class)
     @Composable
     fun ListItemView(beerItem: Beer) {
+
+        val keyboardController = LocalSoftwareKeyboardController.current
 
         Box(modifier = Modifier.padding(10.dp)) {
             Card(
@@ -152,7 +157,10 @@ class BeerListScreen(private val navController: NavController) {
                 shape = RoundedCornerShape(5.dp),
                 modifier = Modifier
                     .shadow(elevation = 10.dp)
-                    .clickable { navController.navigate("BeerDetailScreen/${beerItem.id}") }
+                    .clickable {
+                        keyboardController?.hide()
+                        navController.navigate("BeerDetailScreen/${beerItem.id}")
+                    }
             ) {
 
                 Row {
