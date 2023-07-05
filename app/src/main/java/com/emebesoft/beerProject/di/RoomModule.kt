@@ -21,5 +21,5 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun provideRickMortyDao(db: BeerDb) = db.getBeerDbDao()
+    fun provideBeerDao(db: BeerDb) = db.getBeerDbDao()
 }

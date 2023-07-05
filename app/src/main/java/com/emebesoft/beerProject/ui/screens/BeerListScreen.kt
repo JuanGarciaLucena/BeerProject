@@ -116,7 +116,7 @@ class BeerListScreen(private val navController: NavController) {
                             Log.i("LIST_SCREEN", (uiState as SearchBeerUiState.Success).data.toString())
                             beerList = (uiState as SearchBeerUiState.Success).data
                             if (beerList.isEmpty()) {
-                                ErrorScreen(iconId = R.drawable.ic_empty, message = "Your beer is Empty :(")
+                                ErrorScreen(iconId = R.drawable.ic_empty, stringResource(id = R.string.beer_search_empty))
                             } else {
                                 FillList(beerList = beerList)
                             }

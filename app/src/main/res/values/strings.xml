@@ -5,6 +5,13 @@
     <string name="beer_search_hint">Search beer</string>
     <string name="beer_search_empty">Your beer is empty :(</string>
 
+    <!-- Beer Detail Strings -->
+    <string name="beer_detail_alcohol">Alcohol: %1$s</string>
+    <string name="beer_detail_ibu">IBU: %1$s</string>
+    <string name="beer_detail_ph">Ph: %1$s</string>
+    <string name="beer_detail_brewer_tip">Brewers Tips</string>
+    <string name="beer_detail_food_pairing">Food Pairing</string>
+
     <!-- Content descriptions -->
     <string name="content_description_search_beer">Search beer</string>
 </resources>

@@ -162,9 +162,18 @@ class BeerDetailScreen(private val navController: NavController, private val bee
                             .padding(top = 15.dp),
                         horizontalArrangement = Arrangement.SpaceAround
                     ) {
-                        BeerInfoItem(R.drawable.ic_alcohol, "Alcohol", beer.abv.toString())
-                        BeerInfoItem(R.drawable.ic_hop, "IBU", beer.ibu.toString())
-                        BeerInfoItem(R.drawable.ic_ph, "PH", beer.ph.toString())
+                        BeerInfoItem(
+                            R.drawable.ic_alcohol,
+                            stringResource(R.string.beer_detail_alcohol, beer.abv.toString())
+                        )
+                        BeerInfoItem(
+                            R.drawable.ic_hop,
+                            stringResource(R.string.beer_detail_ibu, beer.ibu.toString())
+                        )
+                        BeerInfoItem(
+                            R.drawable.ic_ph,
+                            stringResource(R.string.beer_detail_ph, beer.ph.toString())
+                        )
                     }
 
                     Divider(
@@ -184,7 +193,7 @@ class BeerDetailScreen(private val navController: NavController, private val bee
                         ) {
                             Column(Modifier.padding(20.dp)) {
                                 Text(
-                                    text = "Brewers Tips",
+                                    text = stringResource(R.string.beer_detail_brewer_tip),
                                     fontSize = 25.sp,
                                     color = Color.White,
                                     modifier = Modifier.padding(bottom = 10.dp),
@@ -217,7 +226,7 @@ class BeerDetailScreen(private val navController: NavController, private val bee
                         ) {
                             Column(Modifier.padding(20.dp)) {
                                 Text(
-                                    text = "Food Pairing",
+                                    text = stringResource(R.string.beer_detail_food_pairing),
                                     fontSize = 25.sp,
                                     color = Color.White,
                                     modifier = Modifier.padding(bottom = 10.dp),
@@ -240,7 +249,7 @@ class BeerDetailScreen(private val navController: NavController, private val bee
     }
 
     @Composable
-    fun BeerInfoItem(iconId: Int, data: String, value: String) {
+    fun BeerInfoItem(iconId: Int, data: String) {
         Box {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
 
@@ -252,7 +261,7 @@ class BeerDetailScreen(private val navController: NavController, private val bee
 
                 Text(
                     modifier = Modifier.wrapContentWidth(),
-                    text = "$data $value",
+                    text = data,
                     color = colorResource(id = R.color.dark_blue),
                     textAlign = TextAlign.Center
                 )
