@@ -6,6 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.emebesoft.beerProject.data.model.toDomain
 import com.emebesoft.beerProject.data.repository.BeerRepositoryImpl
 import com.emebesoft.beerProject.ui.states.BeerListUiState
+import com.emebesoft.beerProject.ui.states.SearchBeerByIdUiState
+import com.emebesoft.beerProject.ui.states.SearchBeerUiState
 import com.emebesoft.beerProject.utils.Result
 import com.emebesoft.beerProject.utils.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,29 +22,61 @@ import javax.inject.Inject
 @HiltViewModel
 class BeerViewModel @Inject constructor(private val beerRepositoryImpl: BeerRepositoryImpl): ViewModel() {
 
-    private val _beerListFlow = MutableStateFlow<BeerListUiState>(BeerListUiState.Loading)
-    val beerListFlow: StateFlow<BeerListUiState> = _beerListFlow.asStateFlow()
+    private val _searchBeerListFlow = MutableStateFlow<SearchBeerUiState>(SearchBeerUiState.Success(
+        emptyList()
+    ))
+    val searchBeerListFlow: StateFlow<SearchBeerUiState> = _searchBeerListFlow.asStateFlow()
 
-    init {
-        fetchBeers()
+    private val _searchBeerByIdFlow = MutableStateFlow<SearchBeerByIdUiState>(SearchBeerByIdUiState.Loading)
+    val searchBeerByIdFlow: StateFlow<SearchBeerByIdUiState> = _searchBeerByIdFlow.asStateFlow()
+
+    fun searchBeers(beerQuery: String){
+        viewModelScope.launch {
+            if (beerQuery.isEmpty()) {
+                _searchBeerListFlow.value = SearchBeerUiState.Success(emptyList())
+            } else {
+                beerRepositoryImpl.searchBeer(beerQuery).asResult().collect { result ->
+                    _searchBeerListFlow.update {
+                        when (result) {
+                            is Result.Loading -> {
+                                Log.i("STATE", "LOADING")
+                                SearchBeerUiState.Loading
+                            }
+
+                            is Result.Success -> {
+                                Log.i("STATE", "SUCCESS")
+                                SearchBeerUiState.Success(result.data.map { beerItem -> beerItem.toDomain() })
+                            }
+
+                            is Result.Error -> {
+                                Log.i("STATE", result.exception!!.message!!)
+                                SearchBeerUiState.Error(result.exception)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
-    private fun fetchBeers(){
+    fun searchBeerById(beerId: String){
         viewModelScope.launch {
-            beerRepositoryImpl.fetchBeers().asResult().collect { result ->
-                _beerListFlow.update {
-                    when(result) {
-                        is Result.Loading ->{
+            beerRepositoryImpl.searchBeerById(beerId).asResult().collect { result  ->
+                _searchBeerByIdFlow.update {
+                    when (result) {
+                        is Result.Loading -> {
                             Log.i("STATE", "LOADING")
-                            BeerListUiState.Loading
+                            SearchBeerByIdUiState.Loading
                         }
+
                         is Result.Success -> {
                             Log.i("STATE", "SUCCESS")
-                            BeerListUiState.Success(result.data.map { beerItem -> beerItem.toDomain()})
+                            SearchBeerByIdUiState.Success(result.data.map { beerItem -> beerItem.toDomain() })
                         }
+
                         is Result.Error -> {
                             Log.i("STATE", result.exception!!.message!!)
-                            BeerListUiState.Error(result.exception)
+                            SearchBeerByIdUiState.Error(result.exception)
                         }
                     }
                 }

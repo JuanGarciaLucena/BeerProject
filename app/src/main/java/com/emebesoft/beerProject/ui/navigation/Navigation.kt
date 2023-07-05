@@ -18,7 +18,7 @@ class Navigation {
         val navController = rememberNavController()
 
         NavHost(navController = navController, startDestination = "BeerListScreen") {
-            composable("BeerListScreen") { BeerListScreen(navController).BeerListUiStateManager() }
+            composable("BeerListScreen") { BeerListScreen(navController).BeerList() }
             composable(
                 route = "BeerDetailScreen/{beerId}",
                 arguments = listOf(navArgument("beerId") { type = NavType.StringType }))

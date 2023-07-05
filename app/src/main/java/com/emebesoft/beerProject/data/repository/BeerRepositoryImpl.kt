@@ -12,15 +12,20 @@ class BeerRepositoryImpl @Inject constructor(
 
 
     override suspend fun fetchBeers() : Flow<List<BeerModel>> {
-
-
-        val paco = flow {
+        return flow {
             emit(beerDataSource.fetchBeersFromApi())
         }
+    }
 
+    override suspend fun searchBeer(beerQuery: String): Flow<List<BeerModel>> {
+        return flow {
+            emit(beerDataSource.searchBeers(beerQuery))
+        }
+    }
 
-
-
-        return paco
+    override suspend fun searchBeerById(beerId: String): Flow<List<BeerModel>> {
+        return flow {
+            emit(beerDataSource.searchBeerById(beerId))
+        }
     }
 }

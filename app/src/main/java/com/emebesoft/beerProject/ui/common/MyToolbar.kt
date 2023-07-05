@@ -17,7 +17,7 @@ fun MyToolbar(
 ) {
     TopAppBar (
         title = { Text(text = title, color = Color.White) },
-        colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = colorResource(id = R.color.purple_200)),
+        colors = TopAppBarDefaults.largeTopAppBarColors(containerColor = colorResource(id = R.color.blue)),
         navigationIcon = navigationIcon ?: {},
         actions = actions
     )

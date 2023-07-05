@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Beer Project</string>
+
+    <!-- Beer List Strings -->
+    <string name="beer_search_hint">Search beer</string>
+    <string name="beer_search_empty">Your beer is empty :(</string>
+
+    <!-- Content descriptions -->
+    <string name="content_description_search_beer">Search beer</string>
 </resources>
