@@ -28,6 +28,7 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -59,7 +60,7 @@ class BeerListScreen(private val navController: NavController) {
     @Composable
     fun BeerList(beerViewModel: BeerViewModel = hiltViewModel()) {
 
-        var queryText by remember { mutableStateOf("") }
+        var queryText by rememberSaveable { mutableStateOf("") }
         var active by remember { mutableStateOf(false) }
         val uiState by beerViewModel.searchBeerListFlow.collectAsStateWithLifecycle()
         var beerList: List<Beer>
